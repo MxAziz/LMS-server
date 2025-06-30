@@ -16,13 +16,11 @@ const middleware = [
 app.use(middleware);
 
 // Routes
-app.use('/api/v1', routes);
+app.use('/api', routes);
 
 // Initial Route
 app.get('/', (req, res) => {
-  //   throw new Error("Server is Crashed 😵‍💫");
-
-  res.send({ success: true, message: `Sever is Live ⚡` });
+  res.send({ success: true, message: `Sever is Live here...` });
 });
 
 // 404 Not Found handler (must be after all routes)
