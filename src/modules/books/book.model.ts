@@ -17,10 +17,31 @@ const BookSchema = new Schema<IBook>(
             enum: [ "FICTION", "NON_FICTION", "SCIENCE", "HISTORY", "BIOGRAPHY", "FANTASY", ]
         },
         isbn: {
-
+            type: String,
+            unique: true,
+            required: true,
+            trim: true
+        },
+        description: { type: String, default: '' },
+        copies: {
+            type: Number,
+            required: true,
+            min: [0, "copies cannot be negative"],
+            validate: {
+                validator: Number.isInteger,
+                message: "copies must be an integer"
+            }
+        },
+        available: {
+            type: Boolean,
+            default: true
         }
+    },
+    {
+        versionKey: false,
+        timestamps: true
     }
 )
 
-const BOOK = model<IBook>("book", BookSchema);
+const BOOK = model<IBook>("Book", BookSchema);
 export default BOOK;
