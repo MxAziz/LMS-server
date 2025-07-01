@@ -20,7 +20,7 @@ app.use('/api', routes);
 
 // Initial Route
 app.get('/', (req, res) => {
-  res.send({ success: true, message: `Sever is Live here...` });
+  res.json({ success: true, message: `Sever is Live here...` });
 });
 
 // 404 Not Found handler (must be after all routes)
