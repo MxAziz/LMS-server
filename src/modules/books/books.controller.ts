@@ -90,9 +90,28 @@ const updateBook = async (req: Request, res: Response) => {
     }
 };
 
+// delete a book
+const deleteBook = async (req: Request, res: Response) => {
+    try {
+        await BOOK.findByIdAndDelete(req.params.bookId);
+        res.status(200).json({
+            success: true,
+            message: "Book deleted successfully",
+            data: null,
+        });
+    } catch (error) {
+        res.status(400).json({
+            success: false,
+            message: "Failed to delete book",
+            error,
+        });
+    }
+};
+
 export const BOOKScontroller = {
     createBook,
     getAllBooks,
     getBookByID,
     updateBook,
+    deleteBook,
 }

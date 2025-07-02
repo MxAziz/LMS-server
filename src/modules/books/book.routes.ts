@@ -7,6 +7,7 @@ router.post("/", BOOKScontroller.createBook);
 router.get("/", BOOKScontroller.getAllBooks);
 router.get("/:bookId", BOOKScontroller.getBookByID);
 router.patch("/:bookId", BOOKScontroller.updateBook);
+router.delete("/:bookId", BOOKScontroller.deleteBook);
 
 
 export const BooksRoute = router;
