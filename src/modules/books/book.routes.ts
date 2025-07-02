@@ -1,9 +1,10 @@
 import { Router } from "express";
-import { BOOKcontroller } from "./books.controller";
+import { BOOKScontroller } from "./books.controller";
 
 const router = Router();
 
-router.post("/", BOOKcontroller.createBook)
+router.post("/", BOOKScontroller.createBook);
+router.get("/", BOOKScontroller.getAllBooks);
 
 
 export const BooksRoute = router;

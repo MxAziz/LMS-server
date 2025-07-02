@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request, Response } from "express";
 import BOOK from "./book.model";
 
@@ -18,7 +19,42 @@ const createBook = async (req: Request, res: Response) => {
     }
 };
 
+const getAllBooks = async (req: Request, res: Response) => {
+    try {
+      const { filter, sortBy = "createdAt", sort = "desc", limit = "10" } = req.query;
 
-export const BOOKcontroller = {
+      // Filter object
+      const filterObj: any = {};
+      if (filter) {
+        filterObj.genre = filter;
+      }
+
+      // Sort object
+      const sortOrder = sort === "asc" ? 1 : -1;
+      const sortObj: any = {};
+      sortObj[sortBy as string] = sortOrder;
+
+      // Fetch books
+      const books = await BOOK.find(filterObj)
+        .sort(sortObj)
+        .limit(Number(limit));
+
+      res.status(200).json({
+        success: true,
+        message: "Books retrieved successfully",
+        data: books,
+      });
+    } catch (error) {
+      res.status(500).json({
+        success: false,
+        message: "Failed to retrieve books",
+        error: (error as Error).message,
+      });
+    }
+}
+
+
+export const BOOKScontroller = {
     createBook,
+    getAllBooks,
 }
