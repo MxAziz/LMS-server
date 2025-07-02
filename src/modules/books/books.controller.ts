@@ -19,6 +19,7 @@ const createBook = async (req: Request, res: Response) => {
     }
 };
 
+// get all books with filter, sort and limit
 const getAllBooks = async (req: Request, res: Response) => {
     try {
       const { filter, sortBy = "createdAt", sort = "desc", limit = "10" } = req.query;
@@ -53,8 +54,28 @@ const getAllBooks = async (req: Request, res: Response) => {
     }
 }
 
+// get book by id
+const getBookByID = async (req: Request, res: Response) => {
+  try {
+    const book = await BOOK.findById(req.params.bookId);
+    res.status(200).json({
+      success: true,
+      message: "Book retrieved successfully",
+      data: book,
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: "Failed to retrieve book",
+      error,
+    });
+  }
+};
+
+
 
 export const BOOKScontroller = {
     createBook,
     getAllBooks,
+    getBookByID,
 }
