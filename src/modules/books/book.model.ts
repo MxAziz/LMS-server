@@ -1,4 +1,4 @@
-import { model, Schema } from "mongoose";
+import { Model, model, Schema } from "mongoose";
 import { IBook } from "./book.interface";
 
 const BookSchema = new Schema<IBook>(
@@ -45,5 +45,26 @@ const BookSchema = new Schema<IBook>(
     }
 )
 
-const BOOK = model<IBook>("Book", BookSchema);
+BookSchema.statics.reduceCopies = async function (bookId: string, quantity: number) {
+  const book = await this.findById(bookId);
+  if (!book) throw new Error("Book not found");
+
+  if (book.copies < quantity) {
+    throw new Error("Not enough copies available");
+  }
+
+  book.copies -= quantity;
+  if (book.copies === 0) {
+    book.available = false;
+  }
+
+  await book.save();
+  return book;
+};
+
+export interface IBookModel extends Model<IBook> {
+    reduceCopies(bookId: string, quantity: number): Promise<IBook>;
+}
+
+const BOOK = model<IBook, IBookModel>("Book", BookSchema);
 export default BOOK;
