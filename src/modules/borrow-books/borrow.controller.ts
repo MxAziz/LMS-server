@@ -23,5 +23,31 @@ export const borrowController = {
                 error: (error as Error).message || "An error occurred"
         })
         }
+    },
+
+    getBorrowBooksSummary: async (req: Request, res: Response) => {
+        try {
+            const summary = await BorrowBook.aggregate([
+                {
+                    $group: {
+                        _id: "$book",
+                        totalQuantity: { $sum: "$quantity" },
+                    }
+                },
+            ]);
+            res.status(200).json({
+                success: true,
+                message: "Borrow books summary retrieved successfully",
+                data: summary
+            })
+
+        } catch (error) {
+            res.status(500).json({
+                success: false,
+                message: "Failed to fetch borrow  summary",
+                error: (error as Error).message || "An error occurred"
+            })
+        }
     }
+
 }
