@@ -1,5 +1,5 @@
 {
-  "name": "mango-server-with-mongoose",
+  "name": "Library Management System - LMS",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {

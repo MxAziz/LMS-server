@@ -88,6 +88,7 @@ npm install
 Create a `.env` file in the root with the following content:
 
 ```env
+NODE_ENV=development
 PORT=5000
 MONGODB_URI=mongodb://localhost:27017/library-management
 ```
