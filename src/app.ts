@@ -9,7 +9,7 @@ import routes from './routes';
 const app = express();
 
 const middleware = [
-  cors(),
+  cors({origin: ['https://booknest-two-sigma.vercel.app', 'http://localhost:5173']}),
   express.json(),
   express.urlencoded({ extended: true }),
 ];
